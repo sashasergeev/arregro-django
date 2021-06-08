@@ -1,0 +1,74 @@
+{% extends 'news/base.html' %}
+
+{% block page_header %}{% endblock page_header %}
+
+{% block content %}
+<div class="jumbatron"></div>
+
+
+
+<div class="container-fluid">
+
+  <div class="row">
+
+  <div class="col-12 mr-auto ml-auto">
+    <div class="d-flex mt-2">
+      <div class="btn-group col-12 ml-auto mr-auto mb-3 p-1" role="group" aria-label="pageNav">
+        {% if page.has_previous %}
+        <a href="{% url 'news:posts' %}?page={{ page.previous_page_number }}" class="btn btn-light border border-5 shadow-sm" role="button" aria-pressed="true">Previous Page</a>
+        {% endif %}
+        {% if page.has_next %}
+        <a href="{% url 'news:posts' %}?page={{ page.next_page_number }}" class="btn btn-light border border-5 shadow-sm" role="button" aria-pressed="true">Next Page</a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row row-cols-8 row-cols-md-3 g-4 p-2" >
+
+      {% for card in page.object_list %}
+        <div class="col-auto">
+          <div class="card shadow mb-5 bg-body rounded">
+            <div class="card-body bg-light border-bottom">
+              <div class="d-flex">
+                <div>
+                  <h5 class="card-title mt-3">{{ card.coin.name }}</h5>
+                </div>
+                <div class="ml-auto">
+                  <img src="{{ card.coin.img_link }}" class="img-thumbnail" alt="...">
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+
+              <div class="card-text mb-4"><span>{{ card.fuckquestions|slice:":70" }}...</span></div>
+              <div class="d-flex">
+                <div>
+                  <a href="{{ card.coin.cg_link }}" class="btn btn-outline-dark">CoinGecko</a>
+                  <a href="{{ card.coin.tg_link }}" class="btn btn-outline-dark">TG Channel</a>
+                </div>
+                <div class="ml-auto mt-1">
+                  <span class="align-middle">${{ card.price }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex card-footer mt-1 text-muted">
+              <div>{{ card.whenpublished }}</div>
+              <div class="ml-auto">{{ card.tagdublicates }}</div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <h3>NO NEWS</h3
+      {% endfor %}
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock content %}

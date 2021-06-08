@@ -1,0 +1,50 @@
+{% extends 'news/base.html' %}
+
+{% block page_header %}
+
+
+  <div class="card p-2 mb-1 bg-light">
+    <div class="d-flex">
+      <div>
+        <h2 class="card-title ">{{ coin.name }}</h2>
+        <a href="{{ coin.cg_link }}" class="btn btn-outline-dark">CoinGecko</a>
+        <a href="{{ coin.tg_link }}" class="btn btn-outline-dark">TG Channel</a>
+      </div>
+
+    <div class="ml-auto mt-3">
+      <img src="{{ coin.img_link }}" class="img-thumbnail" alt="...">
+    </div>
+    </div>
+  </div>
+
+
+{% endblock page_header %}
+
+
+
+{% block content %}
+<div class="container">
+
+{% for post in posts %}
+    <div class="card ">
+      <div class="card-header d-flex">
+
+          <span>{{ post.date_added }}</span>
+          <span class="ml-auto">{{ post.whenpublished }}</span>
+
+
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{ post.fuckquestions|linebreaks }}</p>
+        <p class="card-text">Tags: {{ post.tagdublicates }}</p>
+        Price at the moment of a news: {{ post.price }}
+      </div>
+    </div>
+
+{% empty %}
+  No posts on this coin yet.
+{% endfor %}
+
+</div>
+{% endblock content %}
+

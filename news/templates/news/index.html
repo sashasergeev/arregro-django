@@ -1,0 +1,69 @@
+{% extends 'news/base.html' %}
+
+
+{% block page_header %}{% endblock page_header %}
+
+{% block content %}
+<div class="jumbotron jumbotron-fluid  mb-3">
+  <div class="container">
+    <h1 class="display-4">Crypto News Aggregator</h1>
+    <p class="lead">on this website you can track latest news about crypto</p>
+  </div>
+</div>
+
+
+
+<div class="container-fluid">
+    <div>
+      <div class="alert alert-light text-center">
+        <h3>Below you can see 3 latest news, if you want to customize what to see, please, sign in.</h3>
+      </div>
+
+    </div>
+
+
+
+    <div class="col-10 mr-auto ml-auto">
+      <div class="row row-cols-8 row-cols-md-3 g-4 p-2" >
+        {% for card in cards %}
+          <div class="col-auto">
+            <div class="card shadow mb-5 bg-body rounded">
+              <div class="card-body bg-light border-bottom">
+                <div class="d-flex">
+                  <div>
+                    <h5 class="card-title mt-3">{{ card.coin.name }}</h5>
+                  </div>
+                  <div class="ml-auto">
+                    <img src="{{ card.coin.img_link }}" class="img-thumbnail" alt="...">
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+
+                <div class="card-text mb-4"><span>{{ card.fuckquestions|slice:":70" }}...</span></div>
+                <div class="d-flex">
+                  <div>
+                    <a href="{{ card.coin.cg_link }}" class="btn btn-outline-dark">CoinGecko</a>
+                    <a href="{{ card.coin.tg_link }}" class="btn btn-outline-dark">TG Channel</a>
+                  </div>
+                  <div class="ml-auto mt-1">
+                    <span class="align-middle">${{ card.price }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex card-footer mt-1 text-muted">
+                <div>
+                  {{ card.whenpublished }}
+                </div>
+                <div class="ml-auto">{{ card.tagdublicates }}</div>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <h3>NO NEWS</h3
+        {% endfor %}
+      </div>
+    </div>
+
+</div>
+{% endblock content %}
