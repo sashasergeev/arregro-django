@@ -101,3 +101,12 @@ class Post(models.Model):
 
             else:
                 return str(years) + " years ago"
+
+
+class PriceDynamic(models.Model):
+    coin = models.OneToOneField(Coin, related_name="prices", on_delete=models.CASCADE)
+    price = models.CharField(max_length=50)
+    cg_id = models.CharField(max_length=60)
+
+    def __str__(self):
+        return str(self.coin) + ' - ' + self.price
