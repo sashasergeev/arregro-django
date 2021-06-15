@@ -1,5 +1,7 @@
 {% load bootstrap4 %}
 
+
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -9,11 +11,16 @@
     {% bootstrap_css %}
     {% bootstrap_javascript jquery='full' %}
     <script src="https://unpkg.com/vue@next"></script>
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm p-2 mb-2 " style="background-color: #000;">
+  <body style="background-color: rgba(56, 58, 63);">
+    <nav class="navbar  navbar-expand-lg  shadow-sm p-2 mb-2 " style="background: #1F2124;">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'news:index' %}">CNA</a>
+        <a class="navbar-brand" href="{% url 'news:index' %}">Arregro</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapseLinks" aria-controls="navbarCollapseLinks" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -58,12 +65,5 @@
       </div>
     </main>
   </body>
-
-
-
-
-
-
-
 
 </html>

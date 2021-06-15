@@ -5,17 +5,14 @@
 {% block content %}
 
 <div class="d-flex mt-2">
-  <div class="btn-group col-12 ml-auto mr-auto mb-3 p-1" role="group" aria-label="pageNav">
+  <div class="btn-group col-12 ml-auto mr-auto mb-3" role="group" aria-label="pageNav">
     {% if page.has_previous %}
     <a href="{% url 'news:coins' %}?page={{ page.previous_page_number }}" class="btn btn-light border border-5 shadow-sm" role="button" aria-pressed="true">Previous Page</a>
     {% else %}
-
-
     <form class="d-flex" method='get' action="{% url 'news:search' %}">
       <input name="search" class="form-control" placeholder="search coins..."
       aria-label="Search" />
     </form>
-
     {% endif %}
     {% if page.has_next %}
     <a href="{% url 'news:coins' %}?page={{ page.next_page_number }}" class="btn btn-light border border-5 shadow-sm" role="button" aria-pressed="true">Next Page</a>
@@ -29,7 +26,7 @@
     <div class="col">
       <div class="card  mb-2">
         <div class="card-body d-flex">
-          <div ><h4 class="card-title mt-3">{{ coin.name }}</h4></div>
+          <div class="coins-title" ><h4 class="card-title mt-3">{{ coin.name }}</h4></div>
           <div class="ml-auto"><img src="{{ coin.img_link }}" class="img-thumbnail" alt="..."></div>
 
         </div>
