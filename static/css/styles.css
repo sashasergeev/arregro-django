@@ -45,17 +45,17 @@
     color: #1F2124;
 }
 .upper {
-    background: #EFF1F3;
+    background: #AAADC4;
     border: none;
 
 }
 
 
 .btn {
-    background: #EFF1F3;
+    background: #B6B9CD;
     border: none;
     border-radius: 0px;
-
+    color: #191A24;
 }
 
 
@@ -68,5 +68,4 @@
 .form {color: #EFF1F3; }
 
 
-
-
+.small, small {color: gray;}

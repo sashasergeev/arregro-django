@@ -35,6 +35,13 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'news:coins' %}">Coins</a>
             </li>
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a href="{% url 'news:new_coin' %}" class="nav-link active" aria-current="page"><small class="adding">add coin</small></a>
+              </li>
+
+            {% endif %}
+
           </ul>
           <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}

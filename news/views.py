@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Coin, Post
+from .models import Coin, Post, CoinSubmit
 from django.core.paginator import Paginator
 import requests
+from .forms import CoinForm
 
 
 def search(request):
@@ -62,3 +63,15 @@ def coinpage(request, coin_id):
         'price': price,
     }
     return render(request, 'news/coin.html', context)
+
+
+def new_coin(request):
+    if request.method != 'POST':
+        form = CoinForm()
+    else:
+        form = CoinForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('news:posts')
+    context = {'form': form}
+    return render(request, 'news/new_coin.html', context)

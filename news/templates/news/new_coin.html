@@ -1,0 +1,25 @@
+{% extends 'news/base.html' %}
+{% load bootstrap4 %}
+
+{% block page_header %}<h2 class="text-center mt-4 form">Submit the coin you want to see here!</h2>{% endblock page_header %}
+
+
+
+{% block content %}
+
+<div class="container d-flex justify-content-center">
+  <div class="col-md-5  col-md-offset-4 col-sm-3 col-sm-offset-3 ">
+    <form action="{% url 'news:new_coin' %}" method="post" class="form">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% buttons %}
+      <button name="submit">add coin</button>
+      {% endbuttons %}
+      <input type="hidden" name="next" value="{% url 'news:new_coin' %}" />
+
+    </form>
+  </div>
+</div>
+
+
+{% endblock content %}
