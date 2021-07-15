@@ -3,7 +3,7 @@ from django.forms.models import model_to_dict
 import requests
 from celery import shared_task
 from channels.layers import get_channel_layer
-from .models import PriceDynamic
+from .models import PriceDynamic, Post
 
 channel_layer = get_channel_layer()
 
@@ -21,18 +21,19 @@ def get_coins_price():
         except:
             continue
 
-        #if obj.price > price['usd']:
-        #   state = 'fall'
-        #elif obj.price == price['usd']:
-        #    state = 'same'
-        #elif obj.price < price['usd']:
-        #    state = 'raise'
+        if float(obj.price) > price['usd']:
+            state = 'fall'
+        elif float(obj.price) == price['usd']:
+            state = 'same'
+        elif float(obj.price) < price['usd']:
+            state = 'raise'
 
         obj.price = str(price['usd'])
         obj.cg_id = coin
         obj.save()
         new_data = model_to_dict(obj)
-        new_data.update({'name': obj.coin.name})
+        new_data.update({'name': obj.coin.name,
+                         'state': state})
         prices.append(new_data)
 
     async_to_sync(channel_layer.group_send)('prices', {'type': 'send_new_data', 'text': prices})

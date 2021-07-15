@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 import math
 
 
@@ -14,6 +15,7 @@ class Coin(models.Model):
     tg_pure_id = models.CharField(max_length=20)
     cg_link = models.URLField()
     img_link = models.URLField()
+    # followers = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name
@@ -109,7 +111,7 @@ class PriceDynamic(models.Model):
     cg_id = models.CharField(max_length=60)
 
     def __str__(self):
-        return str(self.coin) + ' - ' + self.price
+        return self.price
 
 
 class CoinSubmit(models.Model):

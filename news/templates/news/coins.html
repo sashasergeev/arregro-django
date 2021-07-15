@@ -5,9 +5,12 @@
 {% block content %}
 
 <div class="d-flex mt-2">
-  <div class="btn-group col-12 ml-auto mr-auto mb-3" role="group" aria-label="pageNav">
+
+  <div class="btn-group col-8 ml-auto mr-auto mb-3" role="group" aria-label="pageNav">
+        <span class="coinsNum">Coins: {{coinNum}}</span>
+
     {% if page.has_previous %}
-    <a href="{% url 'news:coins' %}?page={{ page.previous_page_number }}" class="btn btn-light border border-5 shadow-sm" role="button" aria-pressed="true">Previous Page</a>
+    <a href="{% url 'news:coins' %}?page={{ page.previous_page_number }}" class="btn-page btn btn-light border border-5 shadow-sm" role="button" aria-pressed="true">Previous Page</a>
     {% else %}
     <form class="d-flex" method='get' action="{% url 'news:search' %}">
       <input name="search" class="form-control" placeholder="search coins..."
@@ -15,32 +18,63 @@
     </form>
     {% endif %}
     {% if page.has_next %}
-    <a href="{% url 'news:coins' %}?page={{ page.next_page_number }}" class="btn btn-light border border-5 shadow-sm" role="button" aria-pressed="true">Next Page</a>
+    <a href="{% url 'news:coins' %}?page={{ page.next_page_number }}" class="btn-page btn btn-light border border-5 shadow-sm" role="button" aria-pressed="true">Next Page</a>
     {% endif %}
   </div>
 </div>
 
 <div class="row row-cols-1 row-cols-md-3 g-4 p-2">
-{% for coin in page.object_list %}
-  <a href="{% url 'news:coinpage' coin.id %}" class="btn "  role="button">
+
+
+  {% for coin in page.object_list %}
+<div>
+  <div  class="coins-list "  >
     <div class="col">
       <div class="card  mb-2">
-        <div class="card-body d-flex">
+        <div class="card-body d-flex align-items-center">
           <div class="coins-title" ><h4 class="card-title mt-3">{{ coin.name }}</h4></div>
+
+
+          <a href="{% url 'news:coinpage' coin.id %}" style="padding-left: 10px; "><button class="btn-page" ">Info</button></a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'news:coinpage' coin.id %}" style="padding-left: 10px"><button class="btn-page" ">Follow</button></a>
+          {% endif %}
           <div class="ml-auto"><img src="{{ coin.img_link }}" class="img-thumbnail" alt="..."></div>
 
         </div>
       </div>
     </div>
-  </a>
+  </div>
+  </div>
 {% empty %}
   <h2>No coins yet.</h2>
 {% endfor %}
-</div>
+
+  <script>
+  var followUN = new Vue({
+  el: '#example-2',
+  data: {
+    name: 'Vue.js'
+  },
+  // define methods under the `methods` object
+  methods: {
+    greet: function (event) {
+      // `this` inside methods points to the Vue instance
+      alert('Hello ' + this.name + '!')
+      // `event` is the native DOM event
+      if (event) {
+        alert(event.target.tagName)
+      }
+    }
+  }
+})
+
+// you can invoke methods in JavaScript too
+example2.greet() // => 'Hello Vue.js!'
+
+  </script>
 
 {% endblock content %}
-
-
 
 
 

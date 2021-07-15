@@ -10,11 +10,11 @@
 
 <div class="row row-cols-1 row-cols-md-3 g-4 p-2">
 {% for coin in coins %}
-  <a href="{% url 'news:coinpage' coin.id %}" class="btn "  role="button">
+  <a href="{% url 'news:coinpage' coin.id %}" class="btn"  role="button">
     <div class="col">
       <div class="card  mb-2">
         <div class="card-body d-flex">
-          <div ><h4 class="card-title mt-3">{{ coin.name }}</h4></div>
+          <div class="coins-title"><h4 class="card-title mt-3">{{ coin.name }}</h4></div>
           <div class="ml-auto"><img src="{{ coin.img_link }}" class="img-thumbnail" alt="..."></div>
 
         </div>

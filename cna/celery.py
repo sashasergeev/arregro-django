@@ -9,9 +9,9 @@ app = Celery('cna')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.beat_schedule = {
-    'get_coins_price_30s': {
+    'get_coins_price_10s': {
         'task': 'news.tasks.get_coins_price',
-        'schedule': 30.0,
+        'schedule': 10.0,
     }
 
 }

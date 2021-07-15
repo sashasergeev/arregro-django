@@ -1,3 +1,4 @@
+
 * {
  font-size: 100%;
  font-family: 'Poppins', sans-serif;
@@ -22,50 +23,168 @@
 }
 
 
-.body {
-  background-color: rgba(56, 58, 63);
-}
-
-
+/* card layout */
 .card {
     background: #1F2124;
-    margin: 10px 20px 20px 20px;
-    padding: 15px;
-    color: white;
-
-
-    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+    margin: 10px 15px 20px 5px;
+    padding: 5px;
+    color: #c1c0bc;
     transition: 0.3s ease-out;
+
 }
 .card:hover {
-    transform: scale(1.04);
-    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.3);
+    transform: scale(1.03);
+    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.25);
 }
 .card-title {
-    color: #1F2124;
+    color:  #c1c0bc;
 }
 .upper {
-    background: #AAADC4;
+    background: #52b7880f;
     border: none;
+    position:relative;
 
 }
+.sub{
+    position:absolute;
+
+    bottom:2%;
+}
+.change.fall, .change.raise {position:absolute;
+ top: -15%;
+
+ font-size: 95%;
+ background: #1f2124;
+ display: inline-block;
+ padding: .25em .4em;
+ line-height: 1;
+ border-radius: .25rem;
+ }
+.before-after, .before-after.raise, .before-after.fall {
+ font-weight: 500;
+ font-size: 80%;
+ background: #1f2124;
+ display: inline-block;
+ padding: .25em .4em;
+ line-height: 1;
+ border-radius: .25rem;
+ color: #aaadc4;
+}
+
+.coin-card {
+    margin: 15px 15px 15px 15px;
+}
+.coin-card:hover {
+    transform: none;
+}
+.card-img {
+  width: 2.7em;
+}
+.three-dots:after {
+  content: '\2807';
+  color: gray;
+  font-size: 25px;
+  }
 
 
+/* buttons */
 .btn {
     background: #B6B9CD;
     border: none;
-    border-radius: 0px;
     color: #191A24;
 }
+.btn-page {
+ background: #32cd3212;
+ color: #32cd32;
+ border: 1px solid #52b788!important;
+ font-size: 1.1rem;
+ font-weight: 400;
 
+ }
+.btn-page:hover {
+    background: #32cd32;
 
-.coins-title h4 {
-    color: white;
-
+ }
+.btn-cards span {
+    padding-right: 0.35em;
 }
 
 
-.form {color: #EFF1F3; }
+.coins-title h4 {color: white;}
+.coins-title h4 {color: white;}
+.form {
+  color: limegreen;
+  padding: 30px; /* fills out the jumbotron */
+  border: 1px solid #32cd35!important;
+background: #32cd3212;
+border-radius: 5px;
+
+}
 
 
 .small, small {color: gray;}
+
+.badge {
+    white-space: normal;
+    color: black;
+}
+
+.coins-list {
+    padding-top: 10px;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+    color: inherit;
+    }
+
+/* coloring price when it changes */
+.fall {
+    color: #ff1b61ba;
+}
+.raise {
+    color: limegreen;
+}
+
+
+.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
+    padding-right: 0.20em;
+    padding-left: 0.20em;
+}
+
+
+
+/* jumbatron /posts/ */
+.jumbatron-posts {
+  padding: 30px; /* fills out the jumbotron */
+  background-color: #1f2124;
+color: #52b788;
+}
+.container h1{
+  padding: 10px 35px;
+  font-weight: 700;
+  border-radius: 5px;
+}
+.hltext {
+  border:1px dashed #aaadc4;
+  padding:0.01em 0.1em;
+}
+.hltext2 {
+text-shadow: 10px 7px #32cd3259;
+}
+
+.indexDiv {
+  background: #32cd3212;
+  border: 1px solid #52b788!important;
+  color: #32cd32;
+}
+
+.coinsNum {
+    padding: .375rem .75rem;
+    border: 1px solid #52b788!important;
+    font-size: 1.1rem;
+    background: #32cd3212;
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+}

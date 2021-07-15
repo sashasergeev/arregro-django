@@ -1,28 +1,19 @@
 {% extends 'news/base.html' %}
 
 
-{% block page_header %}{% endblock page_header %}
-
-{% block content %}
-<div class="jumbotron jumbotron-fluid  mb-3">
-  <div class="container">
+{% block page_header %}
+<div class="jumbatron-posts">
+  <div class="container indexDiv">
     <h1 class="display-4">Crypto News Aggregator</h1>
     <p class="lead">on this website you can track latest news about crypto</p>
   </div>
 </div>
+{% endblock page_header %}
 
+{% block content %}
 
 
 <div class="container-fluid">
-    <div>
-      <div class="alert alert-light text-center">
-        <h3>Below you can see 3 latest news, if you want to customize what to see, please, sign in.</h3>
-      </div>
-
-    </div>
-
-
-
     <div class="col-10 mr-auto ml-auto">
       <div class="row row-cols-8 row-cols-md-3 g-4 p-2" >
         {% for card in cards %}
@@ -42,10 +33,17 @@
 
                 <div class="card-text mb-4"><span>{{ card.fuckquestions|slice:":70" }}...</span></div>
                 <div class="d-flex">
-                  <div>
-                    <a href="{{ card.coin.cg_link }}" class="btn btn-outline-dark">CoinGecko</a>
-                    <a href="{{ card.coin.tg_link }}" class="btn btn-outline-dark">TG Channel</a>
-                  </div>
+                  <div class="btn-cards">
+                    <span>
+                      <a href="{{ card.coin.cg_link }}">
+                        <img class="card-img" alt="Qries" src="https://static.coingecko.com/s/thumbnail-007177f3eca19695592f0b8b0eabbdae282b54154e1be912285c9034ea6cbaf2.png">
+                      </a>
+                    </span>
+                    <a href="{{ card.coin.tg_link }}">
+                      <img class="card-img" alt="Qries" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/240px-Telegram_logo.svg.png">
+                    </a>
+
+                </div>
                   <div class="ml-auto mt-1">
                     <span class="align-middle">${{ card.price }}</span>
                   </div>

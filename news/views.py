@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import Coin, Post, CoinSubmit
+from .models import Coin, Post, PriceDynamic
+from django.forms.models import model_to_dict
+
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
+
+
 import requests
 from .forms import CoinForm
 
@@ -24,29 +29,36 @@ def index(request):
 
 def coins(request):
     coins = Coin.objects.all()
+    coinNum = Coin.objects.count()
 
     coin_paginator = Paginator(coins, 18)
     page_num = request.GET.get('page')
     page = coin_paginator.get_page(page_num)
 
-    context = {'coins': coins,
-               'page':page
+    context = {
+                'page': page,
+                'coinNum': coinNum
                }
     return render(request, 'news/coins.html', context)
 
 
 def posts(request):
     cards = Post.objects.order_by('-date_added')
-    coins = list(Coin.objects.all())
-
-    card_paginator = Paginator(cards, 9)
+    card_paginator = Paginator(cards, 12)
     page_num = request.GET.get('page')
     page = card_paginator.get_page(page_num)
-    context = {'cards': cards,
-               'coins': coins,
-               'page': page,
+    pcs = []
+    for i in PriceDynamic.objects.all():
+        data = model_to_dict(i)
+        data['name'] = i.coin.name
+        pcs.append(data)
+    context = {
+                'page': page,
+                'pcs': pcs,
                }
     return render(request, 'news/posts.html', context)
+
+
 
 
 def coinpage(request, coin_id):
@@ -65,6 +77,7 @@ def coinpage(request, coin_id):
     return render(request, 'news/coin.html', context)
 
 
+@login_required
 def new_coin(request):
     if request.method != 'POST':
         form = CoinForm()
@@ -75,3 +88,10 @@ def new_coin(request):
             return redirect('news:posts')
     context = {'form': form}
     return render(request, 'news/new_coin.html', context)
+
+
+@login_required
+def feed(request):
+
+
+    return render(request, 'news/feed.html')

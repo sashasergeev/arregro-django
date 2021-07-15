@@ -3,7 +3,7 @@
 {% block page_header %}
 
 
-  <div class="card p-2 mb-1 bg-light">
+  <div class="coin-card card p-2 mb-1 bg-light">
     <div class="d-flex">
       <div>
         <h2 class="card-title ">{{ coin.name }} <small>${{ price }}</small></h2>
@@ -26,23 +26,32 @@
 <div class="container">
 
 {% for post in posts %}
-    <div class="card ">
-      <div class="card-header d-flex">
+  <div class="card">
+    <div class="card-header d-flex">
 
-          <span>{{ post.date_added }}</span>
-          <span class="ml-auto">{{ post.whenpublished }}</span>
+        <span>{{ post.date_added }}</span>
+        <span class="ml-auto">{{ post.whenpublished }}</span>
 
 
-      </div>
-      <div class="card-body">
-        <p class="card-text">{{ post.fuckquestions|linebreaks }}</p>
-        <p class="card-text">Tags: {{ post.tagdublicates }}</p>
-        Price at the moment of a news: {{ post.price }}
-      </div>
     </div>
+    <div class="card-body">
+      <p class="card-text">{{ post.fuckquestions|linebreaks }}</p>
+
+      <div class="d-flex card-header mt-1 text-muted">
+        <div class="card-text">Tags: {{ post.tagdublicates }}</div>
+        <div class="ml-auto">Price at the moment of a post: {{ post.price }}</div>
+      </div>
+
+    </div>
+  </div>
 
 {% empty %}
-  No posts on this coin yet.
+  <div class="card">
+
+  <div class="card-body">
+    <p class="card-text">No posts yet.</p>
+  </div>
+  </div>
 {% endfor %}
 
 </div>

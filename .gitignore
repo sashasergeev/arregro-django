@@ -4,3 +4,8 @@ instruction.txt
 .idea/
 celerybeat-schedule.*
 making_dynamic_data.txt
+celerybeat-schedule.bak
+celerybeat-schedule.dat
+celerybeat-schedule.dir
+instruction.txt
+making_dynamic_data.txt
