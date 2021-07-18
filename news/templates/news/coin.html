@@ -3,12 +3,21 @@
 {% block page_header %}
 
 
-  <div class="coin-card card p-2 mb-1 bg-light">
-    <div class="d-flex">
+  <div class="coin-card card p-2 mb-1 ">
+    <div class="d-flex p-3" >
       <div>
         <h2 class="card-title ">{{ coin.name }} <small>${{ price }}</small></h2>
-        <a href="{{ coin.cg_link }}" class="btn btn-outline-dark">CoinGecko</a>
-        <a href="{{ coin.tg_link }}" class="btn btn-outline-dark">TG Channel</a>
+        <a href="{{ coin.cg_link }}">
+          <img class="card-img" alt="Qries" src="https://static.coingecko.com/s/thumbnail-007177f3eca19695592f0b8b0eabbdae282b54154e1be912285c9034ea6cbaf2.png">
+        </a>
+        <a href="{{ coin.tg_link }}">
+          <img class="card-img" alt="Qries" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/240px-Telegram_logo.svg.png">
+        </a>
+        {% if follow %}
+          <span style="padding-left: 10px;" id="{{coin.id}}"><button  onclick="unFollow({{coin.id}})" class="btn-unfollow">Unfollow</button></span>
+        {% else %}
+          <span style="padding-left: 10px;" id="{{coin.id}}"><button onclick="follow({{coin.id}})" class="btn-page">Follow</button></span>
+        {% endif %}
       </div>
 
     <div class="ml-auto mt-3">
@@ -55,5 +64,52 @@
 {% endfor %}
 
 </div>
+
+
+
+
+<script>
+  //    FOLLOW UNFOLLOW FUNCTIONALITY
+const xsrf = "{{csrf_token}}";
+function unFollow(id) {
+  let someStuff = `c_id=${id}`
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", {% url 'news:coins' %}, true);
+  xhr.setRequestHeader("X-CSRFToken", xsrf);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+  xhr.send(someStuff);
+  $(document).ready(function(){
+    $(`#${id}`).children().removeClass("btn-unfollow");
+    $(`#${id}`).children().addClass("btn-page");
+    $(`#${id}`).children().html("Follow");
+    $(`#${id}`).children().attr("onclick",`follow(${id})`)
+  });
+
+}
+function follow(id) {
+  let someStuff = `c_id=${id}&action=follow`;
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", {% url 'news:coins' %}, true);
+  xhr.setRequestHeader("X-CSRFToken", xsrf);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+  xhr.send(someStuff);
+  $(document).ready(function(){
+    $(`#${id}`).children().removeClass("btn-page");
+    $(`#${id}`).children().addClass("btn-unfollow");
+    $(`#${id}`).children().html("Unfollow");
+    $(`#${id}`).children().attr("onclick",`unFollow(${id})`)
+  });
+}
+
+
+
+
+
+
+
+
+
+</script>
+<script src="https://ajax.​googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock content %}
 

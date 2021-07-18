@@ -11,6 +11,6 @@ urlpatterns = [
     path('coins/', views.coins, name='coins'),
     path('feed/', views.feed, name='feed'),
     path('coins/<int:coin_id>', views.coinpage, name='coinpage'),
-    path('search', views.search, name='search'),
+    path('coins/search/', views.search, name='search'),
     path('new_coin/', views.new_coin, name='new_coin'),
 ]

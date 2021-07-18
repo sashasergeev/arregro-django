@@ -15,7 +15,7 @@ class Coin(models.Model):
     tg_pure_id = models.CharField(max_length=20)
     cg_link = models.URLField()
     img_link = models.URLField()
-    # followers = models.ManyToManyField(User)
+    followers = models.ManyToManyField(User)
 
     def __str__(self):
         return self.name

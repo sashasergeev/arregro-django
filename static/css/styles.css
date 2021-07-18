@@ -3,6 +3,16 @@
  font-size: 100%;
  font-family: 'Poppins', sans-serif;
 }
+a {
+    color: #2dd6a1;
+    text-decoration: none;
+}
+
+a:hover {
+    color:#00A0C6;
+    text-decoration:none;
+    cursor:pointer;
+}
 
 .nav {
     background: white;
@@ -33,7 +43,7 @@
 
 }
 .card:hover {
-    transform: scale(1.03);
+    transform: scale(1.01);
     box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.25);
 }
 .card-title {
@@ -102,6 +112,18 @@
 
  }
 .btn-page:hover {
+    background: #32cd32;
+
+ }
+ .btn-unfollow {
+ background: #c21d5112;
+ color: #c21d51;
+ border: 1px solid #c21d51!important;
+ font-size: 1.1rem;
+ font-weight: 400;
+
+ }
+.btn-unfollow:hover {
     background: #32cd32;
 
  }
