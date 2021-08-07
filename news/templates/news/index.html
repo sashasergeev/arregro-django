@@ -2,16 +2,21 @@
 
 
 {% block page_header %}
+
 <div class="jumbatron-posts">
   <div class="container indexDiv">
     <h1 class="display-4">Crypto News Aggregator</h1>
     <p class="lead">on this website you can track latest news about crypto</p>
   </div>
+
 </div>
+  <div class="d-flex justify-content-around align-items-center inx24h">
+    <div class="">24h posts: {{lastdayNum}}</div>
+    <div class="">24h avg change: <span class="{{state}}">{{lastday}}%</span></div>
+  </div>
 {% endblock page_header %}
 
 {% block content %}
-
 
 <div class="container-fluid">
     <div class="col-10 mr-auto ml-auto">
@@ -53,7 +58,7 @@
                 <div>
                   {{ card.whenpublished }}
                 </div>
-                <div class="ml-auto">{{ card.tagdublicates }}</div>
+                <div class="ml-auto">{{ card.get_tags }}</div>
               </div>
             </div>
           </div>

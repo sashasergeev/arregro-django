@@ -21,28 +21,32 @@ class Coin(models.Model):
         return self.name
 
 
+class Tag(models.Model):
+    tag = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.tag
+
+
 class Post(models.Model):
     coin = models.ForeignKey(Coin, related_name="posts", on_delete=models.CASCADE)
     message = models.TextField()
-    tags = models.CharField(max_length=100)
     date_added = models.DateTimeField(auto_now_add=True)
     price = models.CharField(max_length=50)
+    price1hr = models.CharField(max_length=50, blank=True)
+    price2hr = models.CharField(max_length=50, blank=True)
+    tag = models.ManyToManyField(Tag, blank=True, null=True)
 
     def __str__(self):
         return self.message
 
+    def get_tags(self):
+        tags = self.tag.values_list('tag', flat=True)
+        return ', '.join(tags)
+
     def fuckquestions(self):
         text = self.message.replace('?', '')
         return text
-
-    def tagdublicates(self):
-        pure = (self.tags).lower().split(',')
-        if len(pure) > 1:
-            s = set(pure)
-            listToStr = ', '.join([str(elem.lower()) for elem in s])
-            return listToStr
-
-        return self.tags
 
     def whenpublished(self):
         now = timezone.now()

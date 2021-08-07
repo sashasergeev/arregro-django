@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
-from .models import Coin, Post, PriceDynamic
-from django.forms.models import model_to_dict
 from django.http import JsonResponse
-
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 
+from django.forms.models import model_to_dict
+from django.db.models import Count, F, FloatField, ExpressionWrapper, Avg
 
 import requests
+from datetime import datetime, timedelta
+
 from .forms import CoinForm
+from .models import Coin, Post, PriceDynamic, Tag
 
 
 def search(request):
@@ -31,6 +33,48 @@ def search(request):
         return JsonResponse({'data': res})
     return JsonResponse({})
 
+def get_tags(request):
+    if request.is_ajax():
+        data = []
+        tag_id = request.POST.get('tag_id')
+        tag = Tag.objects.get(id=tag_id)
+        cards = tag.post_set.order_by('-date_added')
+        for i in cards:
+            card = {
+                'before_price': i.price,
+                'after_price': i.coin.prices.price,
+                'name': i.coin.name,
+                'img': i.coin.img_link,
+                'text': i.fuckquestions()[:100],
+                'cg_link': i.coin.cg_link,
+                'tg_link': i.coin.tg_link,
+                'time': i.whenpublished(),
+                'tags': i.get_tags(),
+                'post_id': i.id,
+                'change': round((float(i.coin.prices.price) / float(i.price) - 1) *100, 2)
+            }
+            data.append(card)
+        return JsonResponse({'data': data})
+
+
+def get_data_modal(request):
+    if request.is_ajax():
+        post_id = request.POST.get('post_id')
+        post = Post.objects.get(id=post_id)
+        modal = {
+            'before': post.price,
+            'after': post.coin.prices.price,
+            '1hr': post.price1hr,
+            '2hr': post.price2hr,
+            'name': post.coin.name,
+            'img': post.coin.img_link,
+            'text': post.fuckquestions(),
+            'cg_link': post.coin.cg_link,
+            'tg_link': post.coin.tg_link,
+            'time': post.whenpublished(),
+            'tags': post.get_tags(),
+        }
+        return JsonResponse({'modal': modal})
 
 
 # Create your views here.
@@ -38,7 +82,18 @@ def search(request):
 
 def index(request):
     cards = list(Post.objects.order_by('-date_added'))
-    context = {'cards': cards[:3]}
+    lastday = Post.objects\
+        .filter(date_added__gte=datetime.now()-timedelta(days=1))\
+        .annotate(change=ExpressionWrapper((F('coin__prices__price') / F('price') - 1)*100, output_field=FloatField()))\
+        .aggregate(Avg('change'))  # get last day data
+    lastdayNum = Post.objects.filter(date_added__gte=datetime.now()-timedelta(days=1)).count()
+    state = 'fall' if lastday['change__avg'] < 0 else 'raise'
+    context = {
+        'cards': cards[:3],
+        'lastday': round(lastday['change__avg'], 2),
+        'lastdayNum': lastdayNum,
+        'state': state,
+    }
     return render(request, 'news/index.html', context)
 
 
@@ -62,9 +117,15 @@ def coins(request):
     context = {
                 'page': page,
                 'coinNum': coinNum,
-                'follow': request.user.coin_set.all()
                }
+    if request.user.is_authenticated:
+        context['follow'] = request.user.coin_set.all()
     return render(request, 'news/coins.html', context)
+
+
+def tags(request):
+    tags = Tag.objects.annotate(tag_count=Count('post'))
+    return render(request, 'news/tags.html', {'tags': tags})
 
 
 def posts(request):
