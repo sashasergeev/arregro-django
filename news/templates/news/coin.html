@@ -1,8 +1,7 @@
 {% extends 'news/base.html' %}
+{% load static %}
 
 {% block page_header %}
-
-
   <div class="coin-card card p-2 mb-1 ">
     <div class="d-flex p-3" >
       <div>
@@ -19,97 +18,41 @@
           <span style="padding-left: 10px;" id="{{coin.id}}"><button onclick="follow({{coin.id}})" class="btn-page">Follow</button></span>
         {% endif %}
       </div>
-
     <div class="ml-auto mt-3">
       <img src="{{ coin.img_link }}" class="img-thumbnail" alt="...">
     </div>
     </div>
   </div>
-
-
 {% endblock page_header %}
-
-
 
 {% block content %}
 <div class="container">
-
-{% for post in posts %}
-  <div class="card">
-    <div class="card-header d-flex">
-
+  {% for post in posts %}
+    <div class="card">
+      <div class="card-header d-flex">
         <span>{{ post.date_added }}</span>
         <span class="ml-auto">{{ post.whenpublished }}</span>
-
-
-    </div>
-    <div class="card-body">
-      <p class="card-text">{{ post.fuckquestions|linebreaks }}</p>
-
-      <div class="d-flex card-header mt-1 text-muted">
-        <div class="card-text">Tags: {{ post.tagdublicates }}</div>
-        <div class="ml-auto">Price at the moment of a post: {{ post.price }}</div>
       </div>
-
+      <div class="card-body">
+        <p class="card-text">{{ post.fuckquestions|linebreaks }}</p>
+        <div class="d-flex card-header mt-1 text-muted">
+          <div class="card-text">Tags: {{ post.tagdublicates }}</div>
+          <div class="ml-auto">Price at the moment of a post: {{ post.price }}</div>
+        </div>
+      </div>
     </div>
-  </div>
-
-{% empty %}
-  <div class="card">
-
-  <div class="card-body">
-    <p class="card-text">No posts yet.</p>
-  </div>
-  </div>
-{% endfor %}
-
+  {% empty %}
+    <div class="card">
+      <div class="card-body">
+        <p class="card-text">No posts yet.</p>
+      </div>
+    </div>
+  {% endfor %}
 </div>
 
-
-
-
-<script>
-  //    FOLLOW UNFOLLOW FUNCTIONALITY
-const xsrf = "{{csrf_token}}";
-function unFollow(id) {
-  let someStuff = `c_id=${id}`
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", {% url 'news:coins' %}, true);
-  xhr.setRequestHeader("X-CSRFToken", xsrf);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-  xhr.send(someStuff);
-  $(document).ready(function(){
-    $(`#${id}`).children().removeClass("btn-unfollow");
-    $(`#${id}`).children().addClass("btn-page");
-    $(`#${id}`).children().html("Follow");
-    $(`#${id}`).children().attr("onclick",`follow(${id})`)
-  });
-
-}
-function follow(id) {
-  let someStuff = `c_id=${id}&action=follow`;
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", {% url 'news:coins' %}, true);
-  xhr.setRequestHeader("X-CSRFToken", xsrf);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-  xhr.send(someStuff);
-  $(document).ready(function(){
-    $(`#${id}`).children().removeClass("btn-page");
-    $(`#${id}`).children().addClass("btn-unfollow");
-    $(`#${id}`).children().html("Unfollow");
-    $(`#${id}`).children().attr("onclick",`unFollow(${id})`)
-  });
-}
-
-
-
-
-
-
-
-
-
-</script>
+<script>const xsrf = "{{csrf_token}}";</script>
 <script src="https://ajax.​googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/follow.js' %}"></script>
+
 {% endblock content %}
 

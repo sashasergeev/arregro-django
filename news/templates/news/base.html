@@ -52,14 +52,14 @@
           </ul>
           <ul class="navbar-nav ml-auto" >
             {% if user.is_authenticated %}
-              <li class="nav-item ">
+              <li class="nav-item" style="margin-right: 10px;">
                 <span class="navbar-text login" >{{ user.username }}</span>
               </li>
-              <li class="nav-item ">
+              <li class="nav-item " >
                 <a class="nav-link login" href="{% url 'users:logout' %}">Log out</a>
               </li>
             {% else %}
-              <li class="nav-item">
+              <li class="nav-item" style="margin-right: 10px;">
                 <a class="nav-link login" href="{% url 'users:register' %}">Register</a>
               </li>
               <li class="nav-item">

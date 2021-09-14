@@ -4,3 +4,4 @@ instruction.txt
 .idea/
 celerybeat-schedule.*
 making_dynamic_data.txt
+.vscode/

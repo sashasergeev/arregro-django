@@ -35,14 +35,13 @@ class Post(models.Model):
     price = models.CharField(max_length=50)
     price1hr = models.CharField(max_length=50, blank=True)
     price2hr = models.CharField(max_length=50, blank=True)
-    tag = models.ManyToManyField(Tag, blank=True, null=True)
+    tag = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         return self.message
 
-    def get_tags(self):
-        tags = self.tag.values_list('tag', flat=True)
-        return ', '.join(tags)
+    def get_tags(self): 
+        return ", ".join([str(i) for i in self.tag.all()])
 
     def fuckquestions(self):
         text = self.message.replace('?', '')

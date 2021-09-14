@@ -1,5 +1,5 @@
 {% extends 'news/base.html' %}
-
+{% load static %}
 {% block page_header %}{% endblock page_header %}
 
 {% block content %}
@@ -56,107 +56,10 @@
   <h2>No coins yet.</h2>
 {% endfor %}
 
-  <script src="https://ajax.​googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-//    FOLLOW UNFOLLOW FUNCTIONALITY
-const xsrf = "{{csrf_token}}";
-function unFollow(id) {
-  let someStuff = `c_id=${id}`
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", {% url 'news:coins' %}, true);
-  xhr.setRequestHeader("X-CSRFToken", xsrf);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-  xhr.send(someStuff);
-  $(document).ready(function(){
-    $(`#${id}`).children().removeClass("btn-unfollow");
-    $(`#${id}`).children().addClass("btn-page");
-    $(`#${id}`).children().html("Follow");
-    $(`#${id}`).children().attr("onclick",`follow(${id})`)
-  });
-
-}
-function follow(id) {
-  let someStuff = `c_id=${id}&action=follow`;
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", {% url 'news:coins' %}, true);
-  xhr.setRequestHeader("X-CSRFToken", xsrf);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-  xhr.send(someStuff);
-  $(document).ready(function(){
-    $(`#${id}`).children().removeClass("btn-page");
-    $(`#${id}`).children().addClass("btn-unfollow");
-    $(`#${id}`).children().html("Unfollow");
-    $(`#${id}`).children().attr("onclick",`unFollow(${id})`)
-  });
-}
-
-//     SEARCHBAR WIDENER
-const search = document.getElementById('search-form');
-const sRes = document.getElementById('search-input')
-const results = document.getElementById('results-box')
-const url = window.location.href.split('?')[0]
-
-const coinsNum = document.getElementById('coinsNum');
-const button = document.getElementById('next');
-
-//  focus and widening
-search.addEventListener('focus', (event) => {
-  coinsNum.style.display = 'none';
-  button.style.display = 'none';
-  event.target.style.width = `${window.innerWidth * 0.6}px`;
-  event.target.style.position = "absolute";
-  event.target.style.transform = 'translate(5%, -50%)';
-
-  results.style.width = `${sRes.offsetWidth}px`
-  results.style.position = "absolute"
-  results.style.transform = 'translateX(33%) translateY(0%)'
-  results.style['z-index'] = '100'
-}, true)
-// return to the basement
-search.addEventListener('blur', (event) => {
-  if (sRes.value == 0 && results.innerHTML == "") {
-  coinsNum.style.display = 'inline';
-  button.style.display = 'inline';
-  event.target.style.position = "";
-  event.target.style.transform = '';
-  event.target.style.width = 'auto';
-  results.style.display = 'none';
-  }
-
-}, true);
-
-// search functionality
-sRes.addEventListener('keyup', e => {
-  results.style.display = e.target.value.length != 0 ? '' : 'none';
-  sendSearchData(e.target.value);
-})
-
-const sendSearchData = (coin) => {
-  $.ajax({
-    type: 'POST',
-    url: 'search/',
-    data: {
-      'csrfmiddlewaretoken': xsrf,
-      'coin': coin,
-    },
-    success: (res) => {
-      results.innerHTML= '';
-      res.data.some((e, inx) => {
-        if (inx == 19) {
-          results.innerHTML += `<div>+${res.data.length} results...</div>`
-          return true;
-          }
-        results.innerHTML += `<a href=${url}${e.pk}><div>${e.name}</div><a>`
-      })
-    },
-    error: (err) => {
-      console.log(err)
-    },
-  })
-}
-
-
-  </script>
+<script src="https://ajax.​googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>const xsrf = "{{csrf_token}}"</script>
+<script src="{% static 'js/follow.js' %}"></script>
+<script src="{% static 'js/coins.js' %}"></script>
 
 {% endblock content %}
 

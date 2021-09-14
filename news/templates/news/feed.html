@@ -27,12 +27,12 @@
 
   <div class="col-12 mr-auto ml-auto ">
     <div class="d-flex mt-2 sticky-top">
-      <div class="btn-group col-8 mx-auto mb-3" role="group" aria-label="pageNav">
-        {% if page.has_previous %}
-        <a href="{% url 'news:posts' %}?page={{ page.previous_page_number }}" class="btn-page btn btn-light border border-5 shadow-sm" role="button" aria-pressed="true">Previous Page</a>
+      <div id="btns" class="btn-group col-8 mx-auto mb-3" role="group" aria-label="pageNav">
+        {% if posts.has_previous %}
+        <a href="{% url 'news:feed' %}?page={{ posts.previous_page_number }}" class="btn-page btn btn-light border border-5 shadow-sm" role="button" aria-pressed="true">Previous Page</a>
         {% endif %}
-        {% if page.has_next %}
-        <a href="{% url 'news:posts' %}?page={{ page.next_page_number }}" class="btn-page btn btn-light border border-5 shadow-sm" role="button" aria-pressed="true">Next Page</a>
+        {% if posts.has_next %}
+        <a href="{% url 'news:feed' %}?page={{ posts.next_page_number }}" class="btn-page btn btn-light border border-5 shadow-sm" role="button" aria-pressed="true">Next Page</a>
         {% endif %}
       </div>
     </div>
@@ -86,7 +86,7 @@
 
                 </div>
                 <div class="ml-auto mt-1">
-                  <div class="three-dots"></div>
+                  <div class="winModal" data-post-id="{{card.id}}">INFO</div>
                 </div>
               </div>
             </div>
@@ -109,8 +109,10 @@
   </div>
 </div>
 </div>
+<div id="csrf">{%csrf_token%}</div>
 
 <script src="{% static 'js/posts.js' %}"></script>
+<script src="{% static 'js/winbox-bundle.js' %}"></script>
 
 
 {% endblock content %}

@@ -16,7 +16,6 @@ const PricesApp = {
         socket.onmessage = function(event) {
             _this.prices = JSON.parse(event.data);
             priceChange()
-            console.log(_this.prices);
         }
     }
 }
@@ -46,14 +45,13 @@ modal.forEach(e => {
 
     $.ajax({
           type: 'POST',
-          url: 'post/',
+          url: `http://${window.location.host}/posts/post/`,
           data: {
             'csrfmiddlewaretoken': xsrf,
             'post_id': e.dataset.postId,
           },
           success: (res) => {
 
-            console.log(res.modal)
             const modal = new WinBox({
                 title: `${res.modal.name} - post:${e.dataset.postId} `,
                 root: document.getElementById('btns'),
@@ -128,11 +126,8 @@ modal.forEach(e => {
           error: (err) => {
             console.log(err)
           },
-        }),
-
-  console.log(e.dataset.postId)
-
-  })
-})
+        })
+  });
+});
 
 
